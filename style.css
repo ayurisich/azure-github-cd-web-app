@@ -1,0 +1,325 @@
+/* ===== RESET & BASE ===== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #080c14;
+  --surface: #0d1526;
+  --border: #1e3a5f;
+  --accent: #00e5ff;
+  --accent2: #ff4d6d;
+  --text: #e8f4fd;
+  --muted: #5a7fa0;
+  --mono: 'Space Mono', monospace;
+  --display: 'Syne', sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--mono);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* ===== BACKGROUND IMAGE PLACEHOLDER ===== */
+.bg-image {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  /* Placeholder: replace the URL below with your own image */
+  background-image: url('./imagen.jpeg');
+  background-size: cover;
+  background-position: center;
+  filter: blur(3px) brightness(0.3) saturate(0.6);
+  transform: scale(1.05);
+  /* prevent blur edges */
+}
+
+/* dark tint on top of image */
+.bg-image-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(135deg,
+      rgba(8, 12, 20, .82) 0%,
+      rgba(13, 21, 38, .75) 100%);
+}
+
+/* ===== BACKGROUND GRID ===== */
+.bg-grid {
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0, 229, 255, .04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 229, 255, .04) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.glow {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+  z-index: 1;
+  animation: drift 8s ease-in-out infinite alternate;
+}
+
+.glow-1 {
+  width: 500px;
+  height: 500px;
+  background: rgba(0, 229, 255, 0.12);
+  top: -150px;
+  left: -150px;
+}
+
+.glow-2 {
+  width: 400px;
+  height: 400px;
+  background: rgba(255, 77, 109, 0.10);
+  bottom: -120px;
+  right: -120px;
+  animation-delay: -4s;
+}
+
+@keyframes drift {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+
+  to {
+    transform: translate(40px, 30px) scale(1.1);
+  }
+}
+
+/* ===== CARD ===== */
+.card-wrap {
+  position: relative;
+  z-index: 2;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+.card {
+  background: rgba(13, 21, 38, 0.72);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 40px 44px;
+  max-width: 440px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(0, 229, 255, .08),
+    0 30px 80px rgba(0, 0, 0, .6),
+    inset 0 1px 0 rgba(255, 255, 255, .06);
+  animation: fadeUp .7s cubic-bezier(.16, 1, .3, 1) both;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== HEADER BADGES ===== */
+.card-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+.badge {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, .05);
+  border: 1px solid var(--border);
+  color: var(--muted);
+}
+
+.badge.accent {
+  background: rgba(0, 229, 255, .08);
+  border-color: rgba(0, 229, 255, .3);
+  color: var(--accent);
+}
+
+/* ===== AVATAR ===== */
+.avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--accent), #0077b6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 24px;
+  color: var(--bg);
+  letter-spacing: -.02em;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 30px rgba(0, 229, 255, .25);
+}
+
+/* ===== NAME ===== */
+.name {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(32px, 6vw, 42px);
+  line-height: 1;
+  letter-spacing: -.03em;
+  color: var(--text);
+  margin-bottom: 28px;
+}
+
+.name span {
+  color: var(--accent);
+}
+
+/* ===== DIVIDER ===== */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, var(--border), transparent);
+  margin-bottom: 28px;
+}
+
+/* ===== INFO LIST ===== */
+.info-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 36px;
+}
+
+.info-list li {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.value {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--text);
+}
+
+.value.mono {
+  font-family: var(--mono);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--accent2);
+  letter-spacing: .04em;
+}
+
+/* ===== CARD FOOTER ===== */
+.card-footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.year {
+  font-size: 11px;
+  font-family: var(--mono);
+  color: var(--muted);
+  letter-spacing: .08em;
+}
+
+.dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--muted);
+}
+
+/* ===== HOSTING TAG ===== */
+.hosting-tag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(13, 21, 38, .7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 229, 255, .2);
+  border-radius: 40px;
+  padding: 8px 20px;
+  animation: fadeUp .7s .2s cubic-bezier(.16, 1, .3, 1) both;
+}
+
+.hosting-label {
+  font-size: 10px;
+  font-family: var(--mono);
+  color: var(--muted);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.hosting-name {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 15px;
+  color: var(--accent);
+  letter-spacing: -.01em;
+}
+
+.hosting-sub {
+  font-size: 10px;
+  font-family: var(--mono);
+  color: var(--muted);
+  letter-spacing: .06em;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 480px) {
+  .card {
+    padding: 28px 24px;
+  }
+}
